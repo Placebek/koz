@@ -1,12 +1,7 @@
 <template>
+  
   <div class="min-h-screen w-full flex items-center justify-between bg-[#E3FDFD] px-40">
     
-    <UApp>
-      <div class="text-gray-800 flex flex-row gap-3 text-[6vw] sm:text-[4.4vw] md:text-[3vw] lg:text-[2.2vw] xl:text-[1.9vw] items-center cursor-pointer" @click="handleHome">
-        <img src="../assets/img/icons8-глаз-96.png" alt="" class="w-10 h-10" />
-        <div class="text-[#75a3ff] font-semibold tracking-wide">KΘZ</div>
-      </div>
-    </UApp>
 
 
     <div
