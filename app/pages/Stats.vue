@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex flex-col pt-[15vh] xl:px-[5vw] lg:px-[5.3vw] md:px-[5.6vw] sm:px-[6vw] px-[7vw]"
+		class="flex flex-col pt-[15vh] xl:pl-[250px] lg:px-[5.3vw] md:px-[5.6vw] sm:px-[6vw] px-[7vw]"
 	>
 		<div class="flex flex-col lg:flex-row">
 			<div
@@ -12,7 +12,7 @@
 				class="grid grid-cols-2 grid-rows-1 gap-10 w-full lg:ml-[5vw] mt-[2vh] lg:mt-0 h-[30vh]"
 			>
 				<div
-					class="bg-[#A6E3E9] rounded-[10px] flex justify-center items-center text-[4vw] font-semibold flex-col p-2 text-center sm:text-[2.5vw] lg:text-[1.8vw] xl:text-[1.7vw] xl:"
+					class="bg-[#A6E3E9] rounded-[10px] text-[#] flex justify-center items-center text-[4vw] font-semibold flex-col p-2 text-center sm:text-[2.5vw] lg:text-[1.8vw] xl:text-[1.7vw] xl:"
 				>
 					<span> Бүгінге дейін өтілген тест саны: </span>
 					<span
@@ -41,7 +41,7 @@
 import { defineComponent, onMounted } from 'vue'
 import Chart from 'chart.js/auto'
 
-import StatsCard from '~/components/elements/StatsCard.vue'
+import StatsCard from '../components/StatsCard.vue'
 
 export default defineComponent({
 	name: 'Stats',

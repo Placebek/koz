@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#E3FDFD] min-h-screen w-full relative">
+  <div class="bg-[#E3FDFD] min-h-screen relative">
     <Header />
     
     <main class="flex-grow">

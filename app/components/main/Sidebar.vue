@@ -1,55 +1,80 @@
 <template>
-    <div >
-        <header class="flex items-center gap-2 p-4 hover:scale-[101%] transition cursor-pointer ">
-            <div
-				class="text-black flex flex-row gap-3 text-[6vw] sm:text-[4.4vw] md:text-[3vw] lg:text-[2.2vw] xl:text-[1.9vw] items-center cursor-pointer"
-			>
-				<img
-					src="../../assets/img/icons8-глаз-96.png"
-					alt=""
-					class="w-10 h-10"
-				/>
-
-				<p class="text-[#75a3ff] font-semibold tracking-wide">KΘZ</p>
+	<div>
+		<header
+			class="flex items-center gap-2 p-4 hover:scale-[101%] transition cursor-pointer"
+		></header>
+		<div class="px-4 frow text-black">
+			<div class="grid gap-4">
+				<div
+					v-for="(item, index) in items"
+					:key="index"
+					class="flex items-center gap-3 px-3 py-1 transition rounded-xl cursor-pointer hover:bg-[#CBF1F5]"
+					@click="handleLink(item.path, item.id)"
+				>
+					<div v-if="item.id == active" class="flex gap-3">
+						<Icon :name="item.icon" size="30" style="color: #ffffff" />
+						<span class="font-medium text-white">{{ item.items }}</span>
+					</div>
+					<div v-else class="flex gap-3">
+						<Icon :name="item.icon" size="30" style="color: #508aff" />
+						<span class="font-medium">{{ item.items }}</span>
+					</div>
+				</div>
+				<div
+					class="flex flex-row p-3 gap-3 rounded-xl bg-blue-700 absolute bottom-8 hover:bg-blue-500 transition cursor-pointer text-white justify-center items-center"
+				>
+					<Icon name="mdi:plus-circle" size="30" />
+					<p>Бөлме жасау</p>
+				</div>
 			</div>
-        </header>
-        <div class="px-4 frow text-black">
-            <div class="grid gap-4">
-                <div v-for="(item, index) in items" :key="index" class="flex items-center gap-2 px-2 py-1 transition rounded cursor-pointer hover:bg-neutral-100 ">
-                    <span class="">{{ item.items }}</span>
-                </div>
-
-            </div>
-        </div>
-    </div>
+		</div>
+	</div>
 </template>
-
 
 <script setup>
 const items = ref([
 	{
+		id: 1,
 		items: 'Басты бет',
-        path: '/',
+		path: '/',
+		icon: 'mdi:home',
 	},
 	{
+		id: 2,
 		items: 'Пәндер',
-        path: '/subjects',
-
+		path: '/subjects',
+		icon: 'material-symbols:book-2',
 	},
 	{
+		id: 3,
 		items: 'Тақырыптар',
-        path: '/subjects',
-
+		path: '/subjects',
+		icon: 'mdi:book-open-page-variant-outline',
 	},
 	{
-		items: 'Тақырып нұсқалары',
-        path: '/subjects',
-
+		id: 4,
+		items: 'Нұсқалары',
+		path: '/subjects',
+		icon: 'mdi:drive-document',
 	},
 	{
-		items: 'Бапталар',
-        path: '/subjects',
-
+		id: 5,
+		items: 'Баптаулар',
+		path: '/subjects',
+		icon: 'solar:settings-bold',
+	},
+	{
+		id: 6,
+		items: 'Санақ',
+		path: '/stats',
+		icon: 'mdi:graph-box',
 	},
 ])
+const { checkToken } = useAuth()
+const handleLink = (link, id) =>{
+    console.log(link, id)
+    active = id
+    checkToken(link)
+} 
+let active = ref('1')
 </script>

@@ -1,15 +1,6 @@
 <template>
   
   <div class="min-h-screen w-full flex items-center justify-between bg-[#E3FDFD] px-40">
-    
-
-
-    <div
-      class="text-gray-800 font-semibold text-2xl hover:text-gray-600 transition-colors cursor-pointer"
-      @click="handleCreateRoom"
-    >
-      Создать комнату
-    </div>
 
     <!-- Большой глаз в центре -->
     <svg class="w-full h-full max-w-2xl max-h-[90vh]" viewBox="0 0 200 200">
@@ -39,12 +30,7 @@
       <circle cx="130" cy="70" r="4" fill="rgba(255, 255, 255, 0.3)" />
     </svg>
 
-    <div
-      class="text-gray-800 font-semibold text-2xl hover:text-gray-600 transition-colors cursor-pointer"
-      @click="handleStats"
-    >
-      Статистика
-    </div>
+    
   </div>
 </template>
 
