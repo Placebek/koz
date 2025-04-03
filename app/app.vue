@@ -3,13 +3,14 @@
     <Header />
     
     <main class="flex-grow">
-      <NuxtPage />
+      <NuxtPage/>
     </main>
   </div>
 </template>
 
 <script>
 import Header from '~/components/main/Header.vue'
+import { RouterLink } from 'vue-router'
 
 export default {
   components: {

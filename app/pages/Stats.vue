@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex flex-col pt-[15vh] xl:pl-[250px] lg:px-[5.3vw] md:px-[5.6vw] sm:px-[6vw] px-[7vw]"
+		class="flex flex-col pt-[15vh] xl:pl-[] lg:pl-[250px] md:px-[5.6vw] sm:px-[6vw] px-[7vw]"
 	>
 		<div class="flex flex-col lg:flex-row">
 			<div
@@ -12,7 +12,7 @@
 				class="grid grid-cols-2 grid-rows-1 gap-10 w-full lg:ml-[5vw] mt-[2vh] lg:mt-0 h-[30vh]"
 			>
 				<div
-					class="bg-[#A6E3E9] rounded-[10px] text-[#] flex justify-center items-center text-[4vw] font-semibold flex-col p-2 text-center sm:text-[2.5vw] lg:text-[1.8vw] xl:text-[1.7vw] xl:"
+					class="bg-[#A6E3E9] rounded-[10px] text-[#75a3ff] flex justify-center items-center text-[4vw] font-semibold flex-col p-2 text-center sm:text-[2.5vw] lg:text-[1.8vw] xl:text-[1.7vw] shadow-xl" :animate="{ rotate: 360 }" 
 				>
 					<span> Бүгінге дейін өтілген тест саны: </span>
 					<span
@@ -21,7 +21,7 @@
 					>
 				</div>
 				<div
-					class="bg-[#A6E3E9] rounded-[10px] flex justify-center items-center text-[4vw] font-semibold flex-col p-2 text-center sm:text-[2.5vw] lg:text-[1.8vw] xl:text-[1.7vw]"
+					class="bg-[#A6E3E9] text-[#75a3ff] rounded-[10px] flex justify-center items-center text-[4vw] font-semibold flex-col p-2 text-center sm:text-[2.5vw] lg:text-[1.8vw] xl:text-[1.7vw] shadow-xl"
 				>
 					<span> Ең үздік студент: </span>
 					<span
@@ -40,6 +40,8 @@
 <script>
 import { defineComponent, onMounted } from 'vue'
 import Chart from 'chart.js/auto'
+import { useSidebarActiveStore } from '#imports';
+
 
 import StatsCard from '../components/StatsCard.vue'
 
@@ -59,6 +61,8 @@ export default defineComponent({
 	},
 	setup() {
 		onMounted(() => {
+			const sidebar = useSidebarActiveStore()
+			sidebar.changeActive(6)
 			const ctx = document.getElementById('myChart')
 			new Chart(ctx, {
 				type: 'bar',

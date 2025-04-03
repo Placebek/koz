@@ -11,7 +11,7 @@
 					class="flex items-center gap-3 px-3 py-1 transition rounded-xl cursor-pointer hover:bg-[#CBF1F5]"
 					@click="handleLink(item.path, item.id)"
 				>
-					<div v-if="item.id == active" class="flex gap-3">
+					<div v-if="item.id == change.currentId()" class="flex gap-3">
 						<Icon :name="item.icon" size="30" style="color: #ffffff" />
 						<span class="font-medium text-white">{{ item.items }}</span>
 					</div>
@@ -31,7 +31,9 @@
 	</div>
 </template>
 
-<script setup>
+<script setup> 
+import { useSidebarActiveStore } from '#imports'
+const change = useSidebarActiveStore()
 const items = ref([
 	{
 		id: 1,
@@ -72,9 +74,7 @@ const items = ref([
 ])
 const { checkToken } = useAuth()
 const handleLink = (link, id) =>{
-    console.log(link, id)
-    active = id
+    change.changeActive(id)
     checkToken(link)
 } 
-let active = ref('1')
 </script>

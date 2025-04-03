@@ -4,7 +4,9 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxt/eslint',
-    '@nuxt/icon'
+    '@nuxt/icon',
+    'motion-v',
+    '@pinia/nuxt'
   ],
 
   css: ['~/assets/css/main.css'],

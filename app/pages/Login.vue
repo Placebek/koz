@@ -59,6 +59,8 @@
 
 <script>
 import { useRouter } from '#app';
+import { useSidebarActiveStore } from '#imports';
+
 
 export default {
   setup() {
