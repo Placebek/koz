@@ -19,9 +19,10 @@
 
     <div
       v-for="subject in subjectsStore.subjects"
-      :key="subject.id"
+	  :key="subject.id"
       class="w-full flex flex-row bg-[#A6E3E9] border-x-2 border-b-2 border-sky-400 text-black"
     >
+	{{ console.log(subject) }}
       <TableForm :data="subject" />
     </div>
 
@@ -36,8 +37,10 @@ import { useSubjectsStore } from '#imports'
 import { onMounted } from 'vue'
 
 const subjectsStore = useSubjectsStore()
-
 onMounted(async () => {
+
   await subjectsStore.getAllSubjects()
+  
+
 })
 </script>

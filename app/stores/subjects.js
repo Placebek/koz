@@ -40,7 +40,7 @@ export const useSubjectsStore = defineStore('subjects', {
 				this.loading = true
 				this.error = null
 				const response = await $api.get('/subjects/all')
-				this.subjects = response.data
+				this.subjects = response.data.subjects
 				return response.data
 			} catch (error) {
 				return this.handleError(error)
