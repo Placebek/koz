@@ -1,6 +1,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
+  plugins: [
+    '~/stores/api.js'
+  ],
   modules: [
     '@nuxt/ui',
     '@nuxt/eslint',
