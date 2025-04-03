@@ -1,13 +1,16 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  plugins: [
-    '~/stores/api.js'
-  ],
+  plugins: ['~/plugins/api.js'],
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.API_BASE_URL || 'http://192.168.152.31:8000',
+    },
+  },
   modules: [
     '@nuxt/ui',
     '@nuxt/eslint',
     '@nuxt/icon',
-    'motion-v',
+    // 'motion-v',
     '@pinia/nuxt'
   ],
 

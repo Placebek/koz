@@ -4,19 +4,15 @@ export default defineNuxtPlugin(nuxtApp => {
 	const config = useRuntimeConfig()
 
 	const api = axios.create({
-		baseURL: config.public.apiBaseUrl,
+		baseURL: config.public.apiBase || 'http://192.168.152.118:8000',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	})
 
-	const getAuthToken = () => {
-		return localStorage.getItem('access_token')
-	}
-
 	api.interceptors.request.use(
 		config => {
-			const token = getAuthToken()
+			const token = localStorage.getItem('access_token')
 			if (token) {
 				config.headers['Authorization'] = `Bearer ${token}`
 			}
@@ -25,5 +21,9 @@ export default defineNuxtPlugin(nuxtApp => {
 		error => Promise.reject(error)
 	)
 
-	nuxtApp.provide('api', api)
+	return {
+		provide: {
+			api
+		},
+	}
 })
