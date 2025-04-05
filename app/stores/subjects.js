@@ -21,17 +21,19 @@ export const useSubjectsStore = defineStore('subjects', {
 
 		async createSubject(data) {
 			const { $api } = useNuxtApp()
-			try {
+			// try {
 				this.loading = true
 				this.error = null
 				const response = await $api.post('/subjects/new', data)
+				console.log(response)
 				this.subjects = [...this.subjects, response.data]
-				return response.data
-			} catch (error) {
-				return this.handleError(error)
-			} finally {
+				
 				this.loading = false
-			}
+				return response.data
+			// } catch (error) {
+			// 	return this.handleError(error)
+			// } finally {
+			// }
 		},
 
 		async getAllSubjects() {

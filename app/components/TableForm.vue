@@ -22,7 +22,7 @@
 		/>
 	</div>
 
-	<ChangeTableModal v-model:open="isOpen" :title="modalTitle" />
+	<ChangeTableModal v-model:open="isOpenChange" :title="modalTitle" />
 	<DeleteTableModal v-model:open="isOpenDelete" :title="modalTitle" :id="idTable"/>
 
 </template>
@@ -38,11 +38,9 @@ const isOpenChange = ref(false);
 const isOpenDelete = ref(false);
 const idTable = ref("")
 const modalTitle = ref("");
-const modalContent = ref("");
 
-function openModalChange(title, content) {
+function openModalChange(title ) {
 	modalTitle.value = title;
-	modalContent.value = content;
 	isOpenChange.value = true;
 }
 

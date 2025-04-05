@@ -11,7 +11,7 @@
 					{{ title }}
 				</div>
 
-				<UButton loading-auto label="Өшіру" @click="deleteTable(id)" class="mt-4" />
+				<UButton loading-auto label="Өшіру" @click="deleteTable(idTable)" class="mt-4" />
 				<UButton
 					label="Жоқ, өшіруге қимаймын"
 					@click="$emit('update:open', false)"
@@ -37,7 +37,7 @@ async function deleteTable(id) {
 defineProps({
 	open: Boolean,
 	title: String,
-	id: Number
+	idTable: Number
 })
 
 defineEmits(['update:open'])
