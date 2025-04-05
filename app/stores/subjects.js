@@ -87,7 +87,11 @@ export const useSubjectsStore = defineStore('subjects', {
 			try {
 				this.loading = true
 				this.error = null
-				await $api.delete(`/subjects/delete/${subject_id}`)
+				await $api.delete(`/subjects/delete/`, {
+					params: {
+						subject_id: subject_id
+					},
+				})
 				this.subjects = this.subjects.filter(s => s.id !== subject_id)
 				return { success: true }
 			} catch (error) {
