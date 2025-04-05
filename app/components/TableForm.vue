@@ -10,7 +10,7 @@
 			name="mdi:pencil"
 			size="25"
 			class="text-green-400 shadow-xl cursor-pointer hover:text-green-500"
-			@click="openModalChange(data.name)"
+			@click="openModalChange(data.name, data.id)"
 		/>
 	</div>
 	<div class="w-[5%] flex justify-center items-center">
@@ -22,8 +22,8 @@
 		/>
 	</div>
 
-	<ChangeTableModal v-model:open="isOpenChange" :title="modalTitle" />
-	<DeleteTableModal v-model:open="isOpenDelete" :title="modalTitle" :id="idTable"/>
+	<ChangeTableModal v-model:open="isOpenChange" :title="modalTitle" :idTable="idTable"/>
+	<DeleteTableModal v-model:open="isOpenDelete" :title="modalTitle" :idTable="idTable"/>
 
 </template>
 
@@ -39,8 +39,9 @@ const isOpenDelete = ref(false);
 const idTable = ref("")
 const modalTitle = ref("");
 
-function openModalChange(title ) {
+function openModalChange(title, id) {
 	modalTitle.value = title;
+	idTable.value = id
 	isOpenChange.value = true;
 }
 

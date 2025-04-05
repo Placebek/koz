@@ -21,19 +21,19 @@ export const useSubjectsStore = defineStore('subjects', {
 
 		async createSubject(data) {
 			const { $api } = useNuxtApp()
-			// try {
+			try {
 				this.loading = true
 				this.error = null
 				const response = await $api.post('/subjects/new', data)
 				console.log(response)
-				this.subjects = [...this.subjects, response.data]
+				this.subjects.subjects = [...this.subjects.subjects, response.data]
+				return { success: true }
 				
+			} catch (error) {
+				return this.handleError(error)
+			} finally {
 				this.loading = false
-				return response.data
-			// } catch (error) {
-			// 	return this.handleError(error)
-			// } finally {
-			// }
+			}
 		},
 
 		async getAllSubjects() {
@@ -65,18 +65,16 @@ export const useSubjectsStore = defineStore('subjects', {
 			}
 		},
 
-		async updateSubject(subject_id, data) {
+		async updateSubject(data) {
 			const { $api } = useNuxtApp()
 			try {
 				this.loading = true
 				this.error = null
-				const response = await $api.put(`/subjects/${subject_id}`, data)
-
-				this.subjects = this.subjects.map(subject =>
-					subject.id === subject_id ? response.data : subject
+				const response = await $api.put(`/subjects/edit`, data)
+				this.subjects.subjects = this.subjects.subjects.map(subject =>
+					subject.id === data.id ? response.data : subject
 				)
-
-				return response.data
+				return { success: true }
 			} catch (error) {
 				return this.handleError(error)
 			} finally {
@@ -94,7 +92,9 @@ export const useSubjectsStore = defineStore('subjects', {
 						subject_id: subject_id
 					},
 				})
-				this.subjects = this.subjects.filter(s => s.id !== subject_id)
+				this.subjects.subjects = this.subjects.subjects.filter(
+					s => s.id !== subject_id
+				)
 				return { success: true }
 			} catch (error) {
 				return this.handleError(error)

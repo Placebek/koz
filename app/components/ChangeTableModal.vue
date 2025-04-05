@@ -11,7 +11,7 @@
 					<input
 						type="text"
 						name=""
-						id=""
+						id="changeTitle"
 						:value="title"
 						class="border-2 rounded-2xl p-2 w-full mt-3 border-white focus-visible:outline-0"
 					/>
@@ -19,7 +19,7 @@
 
 				<UButton
 					label="Подтвердить"
-					@click="$emit('update:open', false)"
+					@click="changeTable(idTable)"
 					class="mt-4 "
 				/>
 				<UButton
@@ -38,7 +38,19 @@
 defineProps({
 	open: Boolean,
 	title: String,
-	content: String,
+	idTable: Number,
 })
+
+async function changeTable(id) {
+	const value = document.getElementById('changeTitle').value
+	new Promise(res => setTimeout(res, 1000))
+	const response = await useSubjectsStore().updateSubject({id: id, name: value})
+	debugger
+	if (response) {
+		return $emit('update:open', false)
+	} else {
+	}
+}
+
 defineEmits(['update:open'])
 </script>

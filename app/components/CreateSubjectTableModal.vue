@@ -43,7 +43,7 @@ async function createTable() {
 	if (value) {
 		new Promise(res => setTimeout(res, 1000))
 		const response = await useSubjectsStore().createSubject({name: value})
-		if (response['success']) {
+		if (response) {
 			return $emit('update:open', false)
 		} else {
 

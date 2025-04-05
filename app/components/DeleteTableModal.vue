@@ -29,7 +29,7 @@ import { useSubjectsStore } from '#imports'
 async function deleteTable(id) {
 	new Promise(res => setTimeout(res, 1000))
 	const response = await useSubjectsStore().deleteSubject(id)
-	if (response['success']) {
+	if (response) {
 		return $emit('update:open', false)
 	} else {
 	}
