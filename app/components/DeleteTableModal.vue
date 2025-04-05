@@ -25,12 +25,13 @@
 
 <script setup>
 import { useSubjectsStore } from '#imports'
+const emit = defineEmits(['update:open'])
 
 async function deleteTable(id) {
 	new Promise(res => setTimeout(res, 1000))
 	const response = await useSubjectsStore().deleteSubject(id)
 	if (response) {
-		return $emit('update:open', false)
+		emit('update:open', false)
 	} else {
 	}
 }
@@ -40,5 +41,4 @@ defineProps({
 	idTable: Number
 })
 
-defineEmits(['update:open'])
 </script>

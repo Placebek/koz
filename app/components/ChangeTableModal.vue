@@ -35,6 +35,7 @@
 </template>
 
 <script setup>
+const emit = defineEmits(['update:open'])
 defineProps({
 	open: Boolean,
 	title: String,
@@ -43,14 +44,12 @@ defineProps({
 
 async function changeTable(id) {
 	const value = document.getElementById('changeTitle').value
-	new Promise(res => setTimeout(res, 1000))
+	await new Promise(res => setTimeout(res, 1000))
 	const response = await useSubjectsStore().updateSubject({id: id, name: value})
-	debugger
 	if (response) {
-		return $emit('update:open', false)
+		emit('update:open', false)
 	} else {
 	}
 }
 
-defineEmits(['update:open'])
 </script>

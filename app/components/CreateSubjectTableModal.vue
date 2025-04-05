@@ -6,11 +6,9 @@
 	>
 		<template #content>
 			<div class="p-4">
-				<h2>
-                    Пән енгізу
-                </h2>
-				
-                <div>
+				<h2>Пән енгізу</h2>
+
+				<div>
 					<input
 						type="text"
 						name="title"
@@ -37,25 +35,22 @@
 
 <script setup>
 import { useSubjectsStore } from '#imports'
+const emit = defineEmits(['update:open'])
 
 async function createTable() {
 	const value = document.getElementById('title').value
 	if (value) {
 		new Promise(res => setTimeout(res, 1000))
-		const response = await useSubjectsStore().createSubject({name: value})
+		const response = await useSubjectsStore().createSubject({ name: value })
 		if (response) {
-			return $emit('update:open', false)
+			emit('update:open', false)
 		} else {
-
 		}
+	} else {
 	}
-	else{
-
-	} 
 }
 defineProps({
 	open: Boolean,
 })
 
-defineEmits(['update:open'])
 </script>
