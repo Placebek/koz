@@ -10,7 +10,7 @@
 			name="mdi:pencil"
 			size="25"
 			class="text-green-400 shadow-xl cursor-pointer hover:text-green-500"
-			@click="openModal('teere', 'wefwefwe')"
+			@click="openModal(data.name)"
 		/>
 	</div>
 	<div class="w-[5%] flex justify-center items-center">
