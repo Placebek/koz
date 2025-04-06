@@ -50,7 +50,7 @@ const items = ref([
 	{
 		id: 3,
 		items: 'Тақырыптар',
-		path: '/subjects',
+		path: '/topics',
 		icon: 'mdi:book-open-page-variant-outline',
 	},
 	{

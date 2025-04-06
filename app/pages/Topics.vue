@@ -15,15 +15,15 @@
 			>
 				ID
 			</div>
-			<div class="flex justify-center items-center w-[70%]">Пән аты</div>
+			<div class="flex justify-center items-center w-[70%]">Тақырыптар аты</div>
 		</div>
 
-		<div v-if="subjectsStore.loading" class="text-center py-4 text-green-700">
+		<div v-if="topicsStore.loading" class="text-center py-4 text-green-700">
 			ЩААА...
 		</div>
 
 		<div
-			v-for="subject in currentSubjects"
+			v-for="subject in currentTopics"
 			:key="subject.id"
 			class="w-full flex flex-row bg-[#A6E3E9] border-x-2 border-b-2 h-[5vh] border-sky-400 text-black"
 		>
@@ -31,13 +31,13 @@
 		</div>
 		<!-- 
 		<div
-			v-if="subjectsStore.subjects.subjects.length === 0"
+			v-if="topicsStore.topics.topics.length === 0"
 			class="w-full bg-[#A6E3E9] h-[5vh] border-sky-400 text-black border-x-2 border-b-2 text-center flex justify-center items-center italic font-semibold"
 		>
 			Әзірге ештеңе жоқ
 		</div> -->
-		<div v-if="subjectsStore.error" class="text-red-500 text-center py-4">
-			{{ subjectsStore.error }}
+		<div v-if="topicsStore.error" class="text-red-500 text-center py-4">
+			{{ topicsStore.error }}
 		</div>
 
 		<CreateSubjectTableModal v-model:open="isOpen" />
@@ -54,19 +54,19 @@
 </template>
 
 <script setup>
-import { useSubjectsStore } from '#imports'
+import { useTopicsStore } from '#imports'
 import { onMounted } from 'vue'
 import CreateSubjectTableModal from '~/components/CreateSubjectTableModal.vue'
 
 
 const page = ref(1)
-const currentSubjects = ref([])
+const currentTopics = ref([])
 const countSubject = ref([])
 
 function update() {
 	let a = (page.value - 1) * 10
 	let b = (page.value - 1) * 10 + 10
-	currentSubjects.value = subjectsStore.subjects.subjects.slice(a, b)
+	currentTopics.value = topicsStore.topics.topics.slice(a, b)
 }
 
 const isOpen = ref(false)
@@ -74,15 +74,15 @@ function openModalCreate() {
 	isOpen.value = true
 }
 
-const subjectsStore = useSubjectsStore()
+const topicsStore = useTopicsStore()
 
 onMounted(async () => {
 	const sidebar = useSidebarActiveStore()
 	sidebar.changeActive(3)
-	await subjectsStore.getAllSubjects()
-	countSubject.value = subjectsStore.subjects.subjects.length
+	await topicsStore.getAllTopics()
+	countSubject.value = topicsStore.topics.topics.length
 	if (countSubject.value > 10) {
-		currentSubjects.value = subjectsStore.subjects.subjects.slice(0, 10)
+		currentTopics.value = topicsStore.topics.topics.slice(0, 10)
 	}
 })
 </script>
