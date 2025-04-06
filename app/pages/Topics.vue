@@ -56,8 +56,9 @@
 <script setup>
 import { useSubjectsStore } from '#imports'
 import { onMounted } from 'vue'
-
 import CreateSubjectTableModal from '~/components/CreateSubjectTableModal.vue'
+
+
 const page = ref(1)
 const currentSubjects = ref([])
 const countSubject = ref([])
@@ -77,7 +78,7 @@ const subjectsStore = useSubjectsStore()
 
 onMounted(async () => {
 	const sidebar = useSidebarActiveStore()
-	sidebar.changeActive(2)
+	sidebar.changeActive(3)
 	await subjectsStore.getAllSubjects()
 	countSubject.value = subjectsStore.subjects.subjects.length
 	if (countSubject.value > 10) {

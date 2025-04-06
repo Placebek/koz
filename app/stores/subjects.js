@@ -10,7 +10,7 @@ export const useSubjectsStore = defineStore('subjects', {
 
 	actions: {
 		handleError(error) {
-			console.error('Ошибка запроса:', error)
+			// console.error('Ошибка запроса:', error)
 			if (error.response) {
 				this.error = error.response.data.message || 'Ошибка при авторизации'
 			} else {
@@ -25,8 +25,8 @@ export const useSubjectsStore = defineStore('subjects', {
 				this.loading = true
 				this.error = null
 				const response = await $api.post('/subjects/new', data)
-				console.log(response)
 				this.subjects.subjects = [...this.subjects.subjects, response.data]
+				debugger
 				return { success: true }
 				
 			} catch (error) {

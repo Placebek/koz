@@ -36,7 +36,7 @@ defineProps({
 
 const isOpenChange = ref(false);
 const isOpenDelete = ref(false);
-const idTable = ref("")
+const idTable = ref(0)
 const modalTitle = ref("");
 
 function openModalChange(title, id) {
