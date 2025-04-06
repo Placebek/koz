@@ -1,14 +1,28 @@
 <template>
 	<div class="lg:ml-[250px] lg:mr-[100px] pt-[50px] flex flex-col">
 		<div class="flex justify-between items-center mb-5">
-			<div>
-				<UInputMenu
-					v-model="subjectValue"
-					:items="subjectItems"
-					color="neutral"
-					@focus="openInputMenu = true"
-					style="background: #508aff"
-				/>
+			<div class="flex flex-row gap-2">
+				<div class="flex flex-col">
+					<h2 class="text-black font-semibold">Пән аты:</h2>
+					<UInputMenu
+						v-model="subjectValue"
+						:items="subjectItems"
+						color="neutral"
+						@focus="openInputMenu = true"
+						style="background: #508aff"
+					/>
+				</div>
+				<div class="flex flex-col">
+					<h2 class="text-black font-semibold">Тақырып аты:</h2>
+
+					<UInputMenu
+						v-model="topicsValue"
+						:items="topicsItems"
+						color="neutral"
+						@focus="openInputMenu = true"
+						style="background: #508aff; outline: none;"
+					/>
+				</div>
 			</div>
 			<div
 				class="rounded-lg border border-sky-400 bg-[#A6E3E9] size-[50px] flex justify-center items-center text-blue-400 cursor-pointer hover:bg-[#8adde4]"
@@ -24,19 +38,19 @@
 			>
 				ID
 			</div>
-			<div class="flex justify-center items-center w-[70%]">Тақырыптар аты</div>
+			<div class="flex justify-center items-center w-[70%]">аты</div>
 		</div>
 
-		<div v-if="topicsStore.loading" class="text-center py-4 text-green-700">
+		<div v-if="tasksStore.loading" class="text-center py-4 text-green-700">
 			ЩААА...
 		</div>
 
 		<div
-			v-for="topic in currentTopics"
-			:key="topic.id"
+			v-for="subject in currentTasks"
+			:key="subject.id"
 			class="w-full flex flex-row bg-[#A6E3E9] border-x-2 border-b-2 h-[5vh] border-sky-400 text-black"
 		>
-			<TableForm :data="topic" />
+			<TableForm :data="subject" />
 		</div>
 
 		<div
@@ -45,8 +59,8 @@
 		>
 			Әзірге ештеңе жоқ
 		</div>
-		<div v-if="topicsStore.error" class="text-red-500 text-center py-4">
-			{{ topicsStore.error }}
+		<div v-if="tasksStore.error" class="text-red-500 text-center py-4">
+			{{ tasksStore.error }}
 		</div>
 
 		<CreateSubjectTableModal v-model:open="isOpen" />
@@ -63,22 +77,24 @@
 </template>
 
 <script setup>
-import { useTopicsStore } from '#imports'
+import { useTasksStore } from '#imports'
 import { useSubjectsStore } from '#imports'
 import { onMounted } from 'vue'
 import CreateSubjectTableModal from '~/components/CreateSubjectTableModal.vue'
 
 const page = ref(1)
 const openInputMenu = ref(false)
-const currentTopics = ref([])
+const currentTasks = ref([])
 const countSubject = ref([])
 const subjectItems = ref([])
 const subjectValue = ref('')
+const topicsItems = ref([])
+const topicsValue = ref('')
 
 function update() {
 	let a = (page.value - 1) * 10
 	let b = (page.value - 1) * 10 + 10
-	currentTopics.value = topicsStore.topics.topics.slice(a, b)
+	currentTasks.value = tasksStore.tasks.tasks.slice(a, b)
 }
 
 const isOpen = ref(false)
@@ -86,21 +102,20 @@ function openModalCreate() {
 	isOpen.value = true
 }
 
-const topicsStore = useTopicsStore()
+const tasksStore = useTasksStore()
 const subjectsStore = useSubjectsStore()
 
 onMounted(async () => {
 	const sidebar = useSidebarActiveStore()
-	sidebar.changeActive(3)
+	sidebar.changeActive(4)
 
 	await subjectsStore.getAllSubjects()
 	subjectItems.value = subjectsStore.subjects.subjects.map(item => item['name'])
 	subjectValue.value = subjectItems.value[0]
-	debugger
-	await topicsStore.getAllTopics(1)
-	countSubject.value = topicsStore.topics.topics.length
+	await tasksStore.getAllTasks(1)
+	countSubject.value = tasksStore.tasks.tasks.length
 	if (countSubject.value > 10) {
-		currentTopics.value = topicsStore.topics.topics.slice(0, 10)
+		currentTasks.value = tasksStore.tasks.tasks.slice(0, 10)
 	}
 })
 </script>

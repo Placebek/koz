@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { useNuxtApp } from '#app'
 
-export const useTopicsStore = defineStore('topics', {
+export const useTasksStore = defineStore('tasks', {
 	state: () => ({
-		topics: [],
+		tasks: [],
 		error: null,
 		loading: false,
 	}),
@@ -19,13 +19,13 @@ export const useTopicsStore = defineStore('topics', {
 			return { success: false, error: this.error }
 		},
 
-		async createTopic(data) {
+		async createTask(data) {
 			const { $api } = useNuxtApp()
 			try {
 				this.loading = true
 				this.error = null
-				const response = await $api.post('/topics/new', data)
-				this.topics.topics = [...this.topics.topics, response.data]
+				const response = await $api.post('/tasks/new', data)
+				this.tasks.tasks = [...this.tasks.tasks, response.data]
 				debugger
 				return { success: true }
 				
@@ -36,13 +36,13 @@ export const useTopicsStore = defineStore('topics', {
 			}
 		},
 
-		async getAllTopics(topics_id) {
+		async getAllTasks(tasks_id) {
 			const { $api } = useNuxtApp()
 			try {
 				this.loading = true
 				this.error = null
-				const response = await $api.get(`/topics/all/${topics_id}`)
-				this.topics = response.data
+				const response = await $api.get(`/tasks/all/${tasks_id}`)
+				this.tasks = response.data
 				return response.data
 			} catch (error) {
 				return this.handleError(error)
@@ -51,12 +51,12 @@ export const useTopicsStore = defineStore('topics', {
 			}
 		},
 
-		async getTopicById(topic_id) {
+		async getTaskById(task_id) {
 			const { $api } = useNuxtApp()
 			try {
 				this.loading = true
 				this.error = null
-				const response = await $api.get(`/topics/${topic_id}`)
+				const response = await $api.get(`/tasks/${task_id}`)
 				return response.data
 			} catch (error) {
 				return this.handleError(error)
@@ -65,14 +65,14 @@ export const useTopicsStore = defineStore('topics', {
 			}
 		},
 
-		async updateTopic(data) {
+		async updateTask(data) {
 			const { $api } = useNuxtApp()
 			try {
 				this.loading = true
 				this.error = null
-				const response = await $api.put(`/topics/edit`, data)
-				this.topics.topics = this.topics.topics.map(topic =>
-					topic.id === data.id ? response.data : topic
+				const response = await $api.put(`/tasks/edit`, data)
+				this.tasks.tasks = this.tasks.tasks.map(task =>
+					task.id === data.id ? response.data : task
 				)
 				return { success: true }
 			} catch (error) {
@@ -82,18 +82,18 @@ export const useTopicsStore = defineStore('topics', {
 			}
 		},
 
-		async deleteTopic(topic_id) {
+		async deleteTask(task_id) {
 			const { $api } = useNuxtApp()
 			try {
 				this.loading = true
 				this.error = null
-				await $api.delete(`/topics/delete/`, {
+				await $api.delete(`/tasks/delete/`, {
 					params: {
-						topic_id: topic_id
+						task_id: task_id
 					},
 				})
-				this.topics.topics = this.topics.topics.filter(
-					s => s.id !== topic_id
+				this.tasks.tasks = this.tasks.tasks.filter(
+					s => s.id !== task_id
 				)
 				return { success: true }
 			} catch (error) {

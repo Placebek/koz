@@ -56,7 +56,7 @@ const items = ref([
 	{
 		id: 4,
 		items: 'Нұсқалары',
-		path: '/subjects',
+		path: '/tasks',
 		icon: 'mdi:drive-document',
 	},
 	{
