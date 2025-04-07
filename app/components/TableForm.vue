@@ -2,7 +2,18 @@
 	<div class="border-r flex justify-center items-center w-[30%] border-sky-400">
 		{{ data.id }}
 	</div>
-	<div class="border-r border-sky-400 flex justify-center items-center w-[60%]">
+
+	<div
+		v-if="link"
+		class="border-r border-sky-400 flex justify-center items-center w-[60%] cursor-pointer hover:bg-[#96e2e9]"
+		@click="navigateTo(`/tasks/${data.id}`)"
+	>
+		{{ data.name }}
+	</div>
+	<div
+		v-else
+		class="border-r border-sky-400 flex justify-center items-center w-[60%]"
+	>
 		{{ data.name }}
 	</div>
 	<div class="w-[5%] flex justify-center items-center">
@@ -22,9 +33,16 @@
 		/>
 	</div>
 
-	<ChangeTableModal v-model:open="isOpenChange" :title="modalTitle" :idTable="idTable"/>
-	<DeleteTableModal v-model:open="isOpenDelete" :title="modalTitle" :idTable="idTable"/>
-
+	<ChangeTableModal
+		v-model:open="isOpenChange"
+		:title="modalTitle"
+		:idTable="idTable"
+	/>
+	<DeleteTableModal
+		v-model:open="isOpenDelete"
+		:title="modalTitle"
+		:idTable="idTable"
+	/>
 </template>
 
 <script setup>
@@ -32,23 +50,23 @@ import { defineProps, ref } from 'vue'
 
 defineProps({
 	data: Object,
-});
+	link: Boolean,
+})
 
-const isOpenChange = ref(false);
-const isOpenDelete = ref(false);
+const isOpenChange = ref(false)
+const isOpenDelete = ref(false)
 const idTable = ref(0)
-const modalTitle = ref("");
+const modalTitle = ref('')
 
 function openModalChange(title, id) {
-	modalTitle.value = title;
+	modalTitle.value = title
 	idTable.value = id
-	isOpenChange.value = true;
+	isOpenChange.value = true
 }
 
 function openModalDelete(title, id) {
-	modalTitle.value = title;
+	modalTitle.value = title
 	idTable.value = id
-	isOpenDelete.value = true;
-
+	isOpenDelete.value = true
 }
 </script>

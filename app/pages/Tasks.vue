@@ -52,7 +52,7 @@
 			:key="task.id"
 			class="w-full flex flex-row bg-[#A6E3E9] border-x-2 border-b-2 h-[5vh] border-sky-400 text-black"
 		>
-			<TableForm :data="task" />
+			<TableForm :data="task" :link="true"/>
 		</div>
 
 		<div

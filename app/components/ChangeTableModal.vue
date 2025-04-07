@@ -18,12 +18,12 @@
 				</div>
 
 				<UButton
-					label="Подтвердить"
+					label="Құптау"
 					@click="changeTable(idTable)"
 					class="mt-4 "
 				/>
 				<UButton
-					label="Закрыть"
+					label="Жабу"
 					@click="$emit('update:open', false)"
 					class="mt-4 ml-4 "
 					color="error"
