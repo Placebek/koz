@@ -1,13 +1,17 @@
+<!-- Тақырыптар -->
+
 <template>
 	<div class="lg:ml-[250px] lg:mr-[100px] pt-[50px] flex flex-col">
 		<div class="flex justify-between items-center mb-5">
-			<div>
+			<div class="flex flex-col">
+				<h2 class="text-black font-semibold">Пән аты:</h2>
 				<UInputMenu
 					v-model="subjectValue"
 					:items="subjectItems"
 					color="neutral"
 					@focus="openInputMenu = true"
 					style="background: #508aff"
+					v-on:change="topicsGet()"
 				/>
 			</div>
 			<div
@@ -40,7 +44,7 @@
 		</div>
 
 		<div
-			v-if="countSubject === 0"
+			v-if="countTopics === 0"
 			class="w-full bg-[#A6E3E9] h-[5vh] border-sky-400 text-black border-x-2 border-b-2 text-center flex justify-center items-center italic font-semibold"
 		>
 			Әзірге ештеңе жоқ
@@ -49,12 +53,12 @@
 			{{ topicsStore.error }}
 		</div>
 
-		<CreateSubjectTableModal v-model:open="isOpen" />
+		<CreateTopicsTableModal v-model:open="isOpen" />
 		<div class="flex justify-center items-center mt-5">
 			<UPagination
 				v-model:page="page"
 				:items-per-page="10"
-				:total="countSubject"
+				:total="countTopics"
 				color="primary"
 				@click="update"
 			/>
@@ -62,18 +66,23 @@
 	</div>
 </template>
 
+<!-- Тақырыптар -->
 <script setup>
 import { useTopicsStore } from '#imports'
 import { useSubjectsStore } from '#imports'
 import { onMounted } from 'vue'
-import CreateSubjectTableModal from '~/components/CreateSubjectTableModal.vue'
+import CreateTopicsTableModal from '~/components/CreateTopicsTableModal.vue'
 
 const page = ref(1)
 const openInputMenu = ref(false)
 const currentTopics = ref([])
-const countSubject = ref([])
+const countTopics = ref(0)
+const allSubjects = ref([])
+const subjectId = ref(0)
 const subjectItems = ref([])
 const subjectValue = ref('')
+
+
 
 function update() {
 	let a = (page.value - 1) * 10
@@ -81,26 +90,38 @@ function update() {
 	currentTopics.value = topicsStore.topics.topics.slice(a, b)
 }
 
+async function topicsGet(){
+
+	subjectId.value = allSubjects.value.filter(item=> [subjectValue.value].includes(item['name'])).map((item)=> item['id'] )
+	await topicsStore.getAllTopics(subjectId.value)
+	countTopics.value = topicsStore.topics.topics.length
+	if (countTopics.value > 10) {
+		currentTopics.value = topicsStore.topics.topics.slice(0, 10)
+	}
+	else {
+		currentTopics.value = topicsStore.topics.topics
+	}
+}
+
 const isOpen = ref(false)
 function openModalCreate() {
 	isOpen.value = true
 }
 
+
 const topicsStore = useTopicsStore()
 const subjectsStore = useSubjectsStore()
+
 
 onMounted(async () => {
 	const sidebar = useSidebarActiveStore()
 	sidebar.changeActive(3)
 
 	await subjectsStore.getAllSubjects()
+	allSubjects.value = subjectsStore.subjects.subjects
 	subjectItems.value = subjectsStore.subjects.subjects.map(item => item['name'])
 	subjectValue.value = subjectItems.value[0]
+	await topicsGet()
 	debugger
-	await topicsStore.getAllTopics(1)
-	countSubject.value = topicsStore.topics.topics.length
-	if (countSubject.value > 10) {
-		currentTopics.value = topicsStore.topics.topics.slice(0, 10)
-	}
 })
 </script>
