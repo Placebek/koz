@@ -71,7 +71,7 @@
 import { useTopicsStore } from '#imports'
 import { useSubjectsStore } from '#imports'
 import { onMounted } from 'vue'
-import CreateTopicsTableModal from '~/components/CreateTopicsTableModal.vue'
+import CreateTopicsTableModal from '~/components/CreateTasksTableModal.vue'
 
 const page = ref(1)
 const openInputMenu = ref(false)

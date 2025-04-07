@@ -7,10 +7,9 @@ export const useTasksStore = defineStore('tasks', {
 		error: null,
 		loading: false,
 	}),
-
+	
 	actions: {
 		handleError(error) {
-			// console.error('Ошибка запроса:', error)
 			if (error.response) {
 				this.error = error.response.data.message || 'Ошибка при авторизации'
 			} else {

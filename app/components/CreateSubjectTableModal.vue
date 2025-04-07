@@ -6,7 +6,7 @@
 	>
 		<template #content>
 			<div class="p-4">
-				<h2>Пән енгізу</h2>
+				<h2>Пән еңгізу</h2>
 
 				<div>
 					<input
@@ -23,7 +23,7 @@
 					class="mt-4"
 				/>
 				<UButton
-					label="Жоқ, енгізгім келмей қалды"
+					label="Жоқ, еңгізбеймін"
 					@click="$emit('update:open', false)"
 					class="mt-4 ml-4"
 					color="error"

@@ -10,17 +10,19 @@
 						color="neutral"
 						@focus="openInputMenu = true"
 						style="background: #508aff"
+						v-on:change="topicsGet()"
 					/>
 				</div>
 				<div class="flex flex-col">
 					<h2 class="text-black font-semibold">Тақырып аты:</h2>
 
 					<UInputMenu
-						v-model="topicsValue"
+						v-model="topicValue"
 						:items="topicsItems"
 						color="neutral"
 						@focus="openInputMenu = true"
-						style="background: #508aff; outline: none;"
+						style="background: #508aff; outline: none"
+						v-on:change="tasksGet()"
 					/>
 				</div>
 			</div>
@@ -46,15 +48,15 @@
 		</div>
 
 		<div
-			v-for="subject in currentTasks"
-			:key="subject.id"
+			v-for="task in currentTasks"
+			:key="task.id"
 			class="w-full flex flex-row bg-[#A6E3E9] border-x-2 border-b-2 h-[5vh] border-sky-400 text-black"
 		>
-			<TableForm :data="subject" />
+			<TableForm :data="task" />
 		</div>
 
 		<div
-			v-if="countSubject === 0"
+			v-if="countTasks === 0"
 			class="w-full bg-[#A6E3E9] h-[5vh] border-sky-400 text-black border-x-2 border-b-2 text-center flex justify-center items-center italic font-semibold"
 		>
 			Әзірге ештеңе жоқ
@@ -63,7 +65,8 @@
 			{{ tasksStore.error }}
 		</div>
 
-		<CreateSubjectTableModal v-model:open="isOpen" />
+		<CreateTasksTableModal v-model:open="isOpen" />
+
 		<div class="flex justify-center items-center mt-5">
 			<UPagination
 				v-model:page="page"
@@ -78,31 +81,72 @@
 
 <script setup>
 import { useTasksStore } from '#imports'
+import { useTopicsStore } from '#imports'
 import { useSubjectsStore } from '#imports'
 import { onMounted } from 'vue'
-import CreateSubjectTableModal from '~/components/CreateSubjectTableModal.vue'
+import CreateTasksTableModal from '~/components/CreateTasksTableModal.vue'
+
 
 const page = ref(1)
 const openInputMenu = ref(false)
 const currentTasks = ref([])
-const countSubject = ref([])
-const subjectItems = ref([])
-const subjectValue = ref('')
-const topicsItems = ref([])
-const topicsValue = ref('')
+const countTasks = ref([])
 
+// subjects ref
+const allSubjects = ref([])
+const subjectItems = ref([])
+const subjectId = ref(0)
+const subjectValue = ref('')
+
+// topics ref
+const allTopics = ref([])
+const topicsItems = ref([])
+const topicId = ref(0)
+const topicValue = ref('')
+
+// пагинация
 function update() {
 	let a = (page.value - 1) * 10
 	let b = (page.value - 1) * 10 + 10
 	currentTasks.value = tasksStore.tasks.tasks.slice(a, b)
 }
 
+// открывает и закрывает СОЗДАНИИ НОВОЙ ТАБЛИЦЫ
 const isOpen = ref(false)
 function openModalCreate() {
 	isOpen.value = true
 }
 
+
+// отработчик ивента изменений. Реагирует на каждое изменение в инпуте предметов и топиков, после обновляет список топиков
+async function topicsGet() {
+	topicValue.value = ''
+	subjectId.value = allSubjects.value
+		.filter(item => [subjectValue.value].includes(item['name']))
+		.map(item => item['id'])
+	await topicsStore.getAllTopics(subjectId.value)
+	allTopics.value = topicsStore.topics.topics
+	topicsItems.value = topicsStore.topics.topics.map(item => item['name'])
+}
+
+// отработчик ивента изменений. Реагирует на каждое изменение в инпуте и обновляет список тасков
+async function tasksGet() {
+	topicId.value = allTopics.value
+		.filter(item => [topicValue.value].includes(item['name']))
+		.map(item => item['id'])
+	debugger
+	await tasksStore.getAllTasks(topicId.value)
+	countTasks.value = tasksStore.tasks.tasks.length
+	if (countTasks.value > 10) {
+		currentTasks.value = tasksStore.tasks.tasks.slice(0, 10)
+	} else {
+		currentTasks.value = tasksStore.tasks.tasks
+	}
+}
+
+// константы сторов
 const tasksStore = useTasksStore()
+const topicsStore = useTopicsStore()
 const subjectsStore = useSubjectsStore()
 
 onMounted(async () => {
@@ -110,12 +154,10 @@ onMounted(async () => {
 	sidebar.changeActive(4)
 
 	await subjectsStore.getAllSubjects()
+	allSubjects.value = subjectsStore.subjects.subjects
 	subjectItems.value = subjectsStore.subjects.subjects.map(item => item['name'])
 	subjectValue.value = subjectItems.value[0]
-	await tasksStore.getAllTasks(1)
-	countSubject.value = tasksStore.tasks.tasks.length
-	if (countSubject.value > 10) {
-		currentTasks.value = tasksStore.tasks.tasks.slice(0, 10)
-	}
+
+	await topicsGet()
 })
 </script>
