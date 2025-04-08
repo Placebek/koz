@@ -134,7 +134,6 @@ async function tasksGet() {
 	topicId.value = allTopics.value
 		.filter(item => [topicValue.value].includes(item['name']))
 		.map(item => item['id'])
-	debugger
 	await tasksStore.getAllTasks(topicId.value)
 	countTasks.value = tasksStore.tasks.tasks.length
 	if (countTasks.value > 10) {

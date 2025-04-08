@@ -122,6 +122,5 @@ onMounted(async () => {
 	subjectItems.value = subjectsStore.subjects.subjects.map(item => item['name'])
 	subjectValue.value = subjectItems.value[0]
 	await topicsGet()
-	debugger
 })
 </script>
