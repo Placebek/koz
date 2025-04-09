@@ -21,10 +21,10 @@
 					</div>
 				</div>
 				<div
-					class="flex flex-row p-3 gap-3 rounded-xl bg-blue-700 absolute bottom-8 hover:bg-blue-500 transition cursor-pointer text-white justify-center items-center"
+					class="flex flex-row p-3 gap-3 rounded-xl bg-blue-700 absolute bottom-8 hover:bg-blue-500 transition cursor-pointer text-white justify-center items-center" @click="navigateTo('/create')"
 				>
 					<Icon name="mdi:plus-circle" size="30" />
-					<p>Бөлме жасау</p>
+					<p>Бөлме құру</p>
 				</div>
 			</div>
 		</div>

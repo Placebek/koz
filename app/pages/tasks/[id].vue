@@ -87,9 +87,9 @@
 				>
 					<div class="flex flex-col items-center">
 						<img
-							:src="'http://192.168.152.31:8000/' + options[0].file_path"
+							:src="'http://192.168.152.118:8000/' + options[0].file_path"
 							alt=""
-                            @click="navigateTo('http://192.168.152.31:8000/'+options[0].file_path, { external: true })"
+                            @click="navigateTo('http://192.168.152.118:8000/'+options[0].file_path, { external: true })"
                             class="cursor-pointer"
 						/>
 						<h2>№{{ index+1 }}</h2>

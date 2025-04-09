@@ -79,6 +79,7 @@ onMounted(async () => {
 	const sidebar = useSidebarActiveStore()
 	sidebar.changeActive(2)
 	await subjectsStore.getAllSubjects()
+	
 	countSubject.value = subjectsStore.subjects.subjects.length
 	if (countSubject.value > 10) {
 		currentSubjects.value = subjectsStore.subjects.subjects.slice(0, 10)
