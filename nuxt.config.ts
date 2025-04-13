@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/api.js'],
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.API_BASE_URL || 'http://192.168.152.118:8000',
+      apiBaseUrl: process.env.API_BASE_URL || 'http://192.168.146.31:8000',
     },
   },
   modules: [

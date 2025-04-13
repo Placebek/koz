@@ -93,7 +93,7 @@ let websocket = null
 
 // Подключение к WebSocket
 function connectWebSocket() {
-	const wsUrl = `ws://192.168.152.118:8000/tasks_ws/ws?room_id=${roomId.value}&access_token=${accessToken.value}`
+	const wsUrl = `ws://192.168.146.31:8000/tasks_ws/ws?room_id=${roomId.value}&access_token=${accessToken.value}`
 	console.log(`Попытка подключения к ${wsUrl}`)
 
 	websocket = new WebSocket(wsUrl)

@@ -71,7 +71,7 @@
 			<UPagination
 				v-model:page="page"
 				:items-per-page="10"
-				:total="countSubject"
+				:total="countTasks"
 				color="primary"
 				@click="update"
 			/>

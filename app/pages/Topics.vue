@@ -54,6 +54,7 @@
 		</div>
 
 		<CreateTopicsTableModal v-model:open="isOpen" />
+
 		<div class="flex justify-center items-center mt-5">
 			<UPagination
 				v-model:page="page"
@@ -70,8 +71,7 @@
 <script setup>
 import { useTopicsStore } from '#imports'
 import { useSubjectsStore } from '#imports'
-import { onMounted } from 'vue'
-import CreateTopicsTableModal from '~/components/CreateTasksTableModal.vue'
+import { onMounted } from 'vue'	
 
 const page = ref(1)
 const openInputMenu = ref(false)

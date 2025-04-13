@@ -79,21 +79,23 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="countTaskOptions > 0" class="">
+			<div v-if="countTaskOptions > 0" class=" flex flex-col gap-5">
 				<div
-					v-for="(options, index) in allTaskOptions"
-					:key="options[0].task_number"
-					class="grid grid-cols-3 grid-rows-3 gap-3"
+					v-for="options in allTaskOptions"
+					:key="options.id"
+					class="flex flex-row-reverse items-center gap-3"
 				>
-					<div class="flex flex-col items-center">
-						<img
-							:src="'http://192.168.152.118:8000/' + options[0].file_path"
-							alt=""
-                            @click="navigateTo('http://192.168.152.118:8000/'+options[0].file_path, { external: true })"
-                            class="cursor-pointer"
-						/>
-						<h2>№{{ index+1 }}</h2>
-					</div>
+                    <div v-for="item in options.option_file" :key="options.id" class>
+                        <div class="">
+                            <img
+                                :src="'http://192.168.146.31:8000/' + item.file_path"
+                                alt=""
+                                @click="navigateTo('http://192.168.146.31:8000/'+item.file_path, { external: true })"
+                                class="cursor-pointer"
+                            />
+                        </div>
+                    </div>
+                    <h2 class="text-xl text-[#7ea1ff] italic font-semibold">№{{ options.id }}</h2>
 				</div>
 			</div>
 			<div v-if="taskOptions.error" class="text-red-500 text-center py-4">
@@ -171,9 +173,7 @@ async function sendTaskOptions() {
 
 onMounted(async () => {
 	await taskOptions.getAllTaskOptions(id)
-	allTaskOptions.value = taskOptions.task_options.task_options.map(
-		item => item.option_file
-	)
+	allTaskOptions.value = taskOptions.task_options.task_options
 	countTaskOptions.value = taskOptions.task_options.task_options.length
 })
 </script>
