@@ -6,7 +6,7 @@
       <NuxtPage/>
     </main>
   </div>
-</template>
+</template> 
 
 <script>
 import Header from '~/components/main/Header.vue'
