@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="flex rounded-lg bg-[#71C9CE] p-3 text-white shadow-xl hover:scale-[103%] transition-all duration-300 hover:shadow-2xl mt-5 cursor-pointer relative flex-row gap-5 tooltip"
-		@click="navigateTo(`/assignment/${data.id}`)"
+		@click="navigateTo(`/assignments?room_id=${data.id}`)"
 	>
 		<div class="text-lg font-bold">
 			{{ data.id }}
@@ -30,14 +30,15 @@ defineProps({
 </script>
 
 <style>
-/* Tooltip text */
 .tooltip .tooltiptext {
 	visibility: hidden;
 	min-width: 120px;
 	background-color: rgb(77, 121, 255);
 	color: #fff;
 	text-align: center;
-	padding: 5px 0;
+	padding: 5px;
+	padding-left: 4px;
+	padding-right: 4px;
 	border-radius: 6px;
 
 	position: absolute;
